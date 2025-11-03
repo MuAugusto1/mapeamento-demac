@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './Footer';
 
 /**
  * Componente para a tela "Sobre".
@@ -42,6 +43,8 @@ function AboutPage({ navegarPara }) {
             <button className="back-button" onClick={() => navegarPara('home')}>
                 Voltar
             </button>
+            
+            <Footer />
         </div>
     );
 }
