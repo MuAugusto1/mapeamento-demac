@@ -1,0 +1,602 @@
+:root {
+    --cor-primaria: #1DADEE;
+    --cor-secundaria: #000000;
+    --cor-texto: #FFFFFF;
+    --cor-menu-ativo: #2E2E48;
+    --cor-fundo-ativo-claro: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#root, .app-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ----- Estilos da Tela Inicial (InicioPage) ----- */
+.inicio-page-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto);
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.main-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.continue-button {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto);
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.continue-button:hover {
+    background-color: #1a9bcc;
+    transform: scale(1.03);
+}
+
+.inicio-footer {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.inicio-footer svg {
+    margin-right: 0.5rem;
+}
+
+/* ----- Estilos da Tela Home (HomePage) ----- */
+.home-page-root {
+    width: 100%;
+    height: 100%;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto);
+    display: flex;
+    flex-direction: column;
+}
+
+.home-header {
+    height: 105.6px;
+    background-color: var(--cor-primaria);
+    display: flex;
+    align-items: center;
+    padding: 0 2.5rem; 
+    font-size: 1.2rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    color: black;
+}
+
+.header-logo {
+    margin-left: auto;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: black;
+}
+
+.home-body {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+}
+
+/* Estilos do Menu Lateral */
+.sidebar {
+    width: 80px;
+    height: 463px;
+    background-color: var(--cor-primaria);
+    border-radius: 2rem;
+    
+    position: absolute;
+    left: 0; 
+    top: 50%;
+    transform: translateY(-50%);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.6rem 0;
+    box-sizing: border-box;
+    z-index: 5;
+
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar.expanded {
+    width: 200px;
+}
+
+.sidebar:not(.expanded) .sidebar-item-sair {
+    display: none;
+}
+
+.sidebar:not(.expanded) .sidebar-return-btn {
+    display: none;
+}
+
+.sidebar nav, .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar-item {
+    width: 35px;
+    height: 35px;
+    color: black; 
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar.expanded .sidebar-item {
+    width: calc(200px - 2.5rem);
+    justify-content: flex-start;
+    padding-left: 1.25rem;
+}
+
+.sidebar.expanded .sidebar-item-logo {
+    width: 35px;
+    justify-content: center;
+    padding-left: 0;
+}
+
+.sidebar-item svg {
+    flex-shrink: 0;
+    stroke: black;
+    fill: none;
+}
+
+.sidebar-item.active {
+    background-color: var(--cor-menu-ativo);
+    color: white;
+}
+
+.sidebar-item.active svg {
+    stroke: white;
+    fill: white; 
+}
+
+.sidebar-item:not(.active):not(.sidebar-item-logo):hover {
+    background-color: var(--cor-fundo-ativo-claro);
+}
+
+.sidebar-item-logo {
+    cursor: default;
+}
+
+.sidebar-item-logo:hover {
+    background-color: transparent;
+}
+
+.sidebar-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: black;
+    margin-left: 0;
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    transition: opacity 0.2s ease, visibility 0.2s ease, width 0.3s ease, margin-left 0.3s ease;
+}
+
+.sidebar.expanded .sidebar-text {
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    margin-left: 0.75rem;
+}
+
+.sidebar-item.active .sidebar-text {
+    color: white;
+}
+
+/* Área de Conteúdo Principal */
+.content-area {
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
+    padding: 2rem;
+    margin-left: calc(80px + 2rem);
+}
+
+/* ----- Estilos para telas Sobre e Ajuda ----- */
+.full-page-screen {
+    width: 100%;
+    height: 100%;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.full-page-screen h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.full-page-screen p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+.back-button {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto);
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    margin-top: 2rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: #1a9bcc;
+    transform: scale(1.03);
+}
+
+.back-button svg {
+    margin-right: 8px;
+}
+
+/* ----- Estilos para a tela Sobre ----- */
+.full-page-screen.about-page {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    justify-content: flex-start;
+    padding-top: 5rem;
+    overflow-y: auto;
+}
+
+.about-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+}
+
+.about-title svg {
+    width: 32px;
+    height: 32px;
+    stroke: white;
+}
+
+.about-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.about-timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 4px solid white;
+    background-color: var(--cor-secundaria);
+    margin-right: 2rem;
+    flex-shrink: 0;
+    margin-left: 18px;
+}
+
+.timeline-content {
+    flex-grow: 1;
+    padding: 1.25rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.timeline-content:hover {
+    transform: scale(1.03);
+}
+
+/* Cores dos botões e círculos */
+.item-objetivo .timeline-circle { border-color: #1DADEE; }
+.item-objetivo .timeline-content { background-color: #1DADEE; }
+
+.item-devs .timeline-circle { border-color: #E91E63; }
+.item-devs .timeline-content { background-color: #E91E63; color: white; }
+
+.item-tech .timeline-circle { border-color: #9C27B0; }
+.item-tech .timeline-content { background-color: #9C27B0; color: white; }
+
+.item-agradecimentos .timeline-circle { border-color: #4DB6AC; }
+.item-agradecimentos .timeline-content { background-color: #4DB6AC; }
+
+.item-contato .timeline-circle { border-color: #FFEB3B; }
+.item-contato .timeline-content { background-color: #FFEB3B; }
+
+.about-page .back-button {
+    margin-top: 3rem;
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto);
+}
+
+.about-page .back-button:hover {
+    background-color: #1a9bcc;
+}
+
+/* ----- Estilos para o modo Busca/Categorias no Sidebar ----- */
+.sidebar.expanded.search-mode,
+.sidebar.expanded.categories-mode {
+    width: 250px;
+    padding-top: 0;
+    justify-content: flex-start;
+}
+
+.sidebar.expanded.search-mode .sidebar-nav,
+.sidebar.expanded.categories-mode .sidebar-nav {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.sidebar-search-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: var(--cor-primaria);
+    border-radius: 2rem 2rem 0 0;
+    position: relative;
+}
+
+.sidebar-search-header input {
+    flex-grow: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--cor-texto);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.sidebar-search-header input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.sidebar-search-header input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-return-btn {
+    background-color: var(--cor-menu-ativo);
+    color: var(--cor-texto);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.sidebar-return-btn:hover {
+    background-color: #404060;
+}
+
+.sidebar-return-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--cor-texto);
+}
+
+.sidebar-search-content ul {
+    width: 100%;
+    align-items: flex-start;
+    padding: 1rem 0;
+    box-sizing: border-box;
+}
+
+.sidebar-search-content .sidebar-item {
+    width: calc(100% - 2.5rem);
+    justify-content: flex-start;
+    padding-left: 1.25rem;
+    height: auto;
+    min-height: 35px;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-search-content .sidebar-item:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar-search-content .sidebar-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: black;
+    margin-left: 0.75rem;
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+}
+
+.sidebar-search-content .sidebar-item.active {
+    background-color: var(--cor-menu-ativo);
+    color: white;
+    border-radius: 0.5rem;
+}
+
+.sidebar-search-content .sidebar-item.active .sidebar-text {
+    color: white;
+}
+
+/* ----- Estilos para a tela Ajuda ----- */
+.help-page .about-title {
+    margin-bottom: 5rem;
+}
+
+.help-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    width: 100%;
+    max-width: 1000px;
+    padding: 2rem 0;
+}
+
+.help-card {
+    position: relative;
+    width: 280px;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    margin-top: 2.5rem;
+}
+
+.help-card-icon-wrapper {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--card-color);
+    border: 4px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.help-card-header {
+    height: 60px;
+    background-color: var(--card-color);
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+.help-card-body {
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+    color: black;
+    text-align: left;
+}
+
+.help-card-body h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: black;
+    margin: 0 0 0.75rem 0;
+    text-align: center;
+}
+
+.help-card-body p {
+    font-size: 0.875rem;
+    color: #333;
+    line-height: 1.5;
+    max-width: 100%;
+}
+
+.help-page .back-button {
+    margin-top: 3rem;
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto);
+}
+
+.help-page .back-button:hover {
+    background-color: #1a9bcc;
+}
