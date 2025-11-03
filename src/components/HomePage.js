@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from './Footer';
 import './HomePage.css'; //
 
 /**
@@ -295,6 +296,8 @@ function HomePage({ navegarPara }) {
                     {sidebarMode === 'categories' && <p style={{ color: 'white' }}>Você está na tela de categorias. Termo atual: {searchTerm}</p>}
                 </main>
             </div>
+
+            <Footer />
         </div>
     );
 }

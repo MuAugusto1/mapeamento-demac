@@ -1,5 +1,6 @@
 import React from 'react';
 import HelpCard from './HelpCard';
+import Footer from './Footer';
 
 /**
  * Componente para a tela "Ajuda".
@@ -66,6 +67,8 @@ function HelpPage({ navegarPara }) {
             <button className="back-button" onClick={() => navegarPara('home')}>
                 Voltar
             </button>
+            
+            <Footer />
         </div>
     );
 }
