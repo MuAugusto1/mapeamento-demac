@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Footer from './Footer';
-import './HomePage.css'; //
+import './HomePage.css';
 
 /**
  * Componente da Tela Home.

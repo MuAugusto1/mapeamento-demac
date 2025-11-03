@@ -1,0 +1,17 @@
+.footer-logo {
+    width: 90px;
+    height: auto;
+    margin-left: auto;
+}
+
+@media (max-width: 768px) {
+    .footer-logo {
+        width: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-logo {
+        width: 50px;
+    }
+}
