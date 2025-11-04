@@ -13,6 +13,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Animação de loading */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 #root, .app-container {
     width: 100vw;
     height: 100vh;
@@ -117,7 +123,7 @@ body {
     color: var(--cor-texto);
     display: flex;
     flex-direction: column;
-    padding-bottom: 5rem;
+    overflow: hidden;
 }
 
 .home-header {
@@ -141,9 +147,11 @@ body {
 }
 
 .home-body {
-    flex-grow: 1;
+    flex: 1;
     position: relative;
     display: flex;
+    overflow: hidden;
+    min-height: 0;
 }
 
 /* Estilos do Menu Lateral */
@@ -151,9 +159,9 @@ body {
     width: 80px;
     height: 463px;
     background-color: var(--cor-primaria);
-    border-radius: 2rem;
+    border-radius: 1rem;
     
-    position: absolute;
+    position: fixed;
     left: 0; 
     top: 50%;
     transform: translateY(-50%);
@@ -163,14 +171,14 @@ body {
     align-items: center;
     padding: 1.6rem 0;
     box-sizing: border-box;
-    z-index: 5;
+    z-index: 100;
 
     transition: width 0.3s ease;
     overflow: hidden;
 }
 
 .sidebar.expanded {
-    width: 200px;
+    width: 170px;
 }
 
 .sidebar:not(.expanded) .sidebar-item-sair {
@@ -206,9 +214,9 @@ body {
 }
 
 .sidebar.expanded .sidebar-item {
-    width: calc(200px - 2.5rem);
+    width: calc(170px - 2.5rem);
     justify-content: flex-start;
-    padding-left: 1.25rem;
+    padding-left: 0.5rem;
 }
 
 .sidebar.expanded .sidebar-item-logo {
@@ -270,11 +278,17 @@ body {
 /* Área de Conteúdo Principal */
 .content-area {
     flex-grow: 1;
+    width: 100%;
     height: 100%;
-    overflow-y: auto;
-    padding: 2rem;
-    padding-bottom: 5rem;
-    margin-left: calc(80px + 2rem);
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+/* Mapa ocupa 100% da tela */
+.content-area > * {
+    width: 100%;
+    height: 100%;
 }
 
 /* ----- Estilos para telas Sobre e Ajuda ----- */
@@ -337,7 +351,6 @@ body {
         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
-    justify-content: flex-start;
     padding-top: 5rem;
     overflow-y: auto;
 }
@@ -444,7 +457,7 @@ body {
 .sidebar.expanded.categories-mode {
     width: 250px;
     padding-top: 0;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .sidebar.expanded.search-mode .sidebar-nav,
@@ -456,7 +469,7 @@ body {
 .sidebar-search-header {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1rem;
     box-sizing: border-box;
@@ -471,13 +484,13 @@ body {
     border: none;
     border-radius: 0.5rem;
     background-color: rgba(255, 255, 255, 0.2);
-    color: var(--cor-texto);
+    color: black;
     font-size: 0.9rem;
     margin-left: 0.5rem;
 }
 
 .sidebar-search-header input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .sidebar-search-header input:focus {
@@ -509,17 +522,25 @@ body {
     stroke: var(--cor-texto);
 }
 
+.sidebar-search-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
 .sidebar-search-content ul {
     width: 100%;
-    align-items: flex-start;
+    align-items: center;
     padding: 1rem 0;
     box-sizing: border-box;
+    flex-grow: 1;
 }
 
 .sidebar-search-content .sidebar-item {
-    width: calc(100% - 2.5rem);
-    justify-content: flex-start;
-    padding-left: 1.25rem;
+    width: calc(100% - 3rem);
+    justify-content: center;
+    padding: 0.75rem 1rem;
     height: auto;
     min-height: 35px;
     margin-bottom: 0.5rem;
@@ -533,7 +554,7 @@ body {
     font-size: 12px;
     font-weight: 600;
     color: black;
-    margin-left: 0.75rem;
+    margin-left: 0;
     opacity: 1;
     visibility: visible;
     width: auto;
@@ -542,11 +563,70 @@ body {
 .sidebar-search-content .sidebar-item.active {
     background-color: var(--cor-menu-ativo);
     color: white;
+    border-radius: 2rem;
+}
+
+.sidebar-search-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0 1.6rem 0;
+}
+
+.sidebar-search-footer .sidebar-return-btn {
+    width: 35px;
+    height: 35px;
     border-radius: 0.5rem;
 }
 
 .sidebar-search-content .sidebar-item.active .sidebar-text {
     color: white;
+}
+
+/* Estilos para checkboxes de categoria */
+.sidebar-item-category {
+    width: calc(100% - 3rem) !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important;
+    padding-left: 1rem !important;
+}
+
+.category-checkbox {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    border: 2px solid black;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0;
+    background-color: white;
+    transition: all 0.2s ease;
+}
+
+.sidebar-item-category .sidebar-text {
+    margin-left: 0.75rem !important;
+}
+
+.sidebar-item-category:hover .category-checkbox {
+    border-color: var(--cor-menu-ativo);
+}
+
+.category-checkbox svg {
+    stroke: var(--cor-menu-ativo);
+}
+
+/* Checkbox selecionado - fundo preto, ícone branco */
+.sidebar-item-category.selected .category-checkbox {
+    background-color: black;
+    border-color: black;
+}
+
+.sidebar-item-category.selected .category-checkbox svg {
+    stroke: white;
 }
 
 /* ----- Estilos para a tela Ajuda ----- */
