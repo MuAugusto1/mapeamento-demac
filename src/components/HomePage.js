@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Footer from './Footer';
+import UNESPMap from "./UNESPMap";
 import './HomePage.css';
 
 /**
@@ -289,13 +290,18 @@ function HomePage({ navegarPara }) {
                 {/* Conteúdo principal */}
                 <main className="content-area" style={{ marginLeft: contentAreaMarginLeft, transition: 'margin-left 0.3s ease' }}>
                     <h1 style={{ color: 'white' }}>Conteúdo Principal</h1>
-                    {activeMenuItem === 'dashboard' && <p style={{ color: 'white' }}>Bem-vindo ao Dashboard!</p>}
+                    {/* Aqui entra o mapa */}
+                    <section style={{ marginTop: "2rem" }}>
+                        <UNESPMap />
+                    </section>
                     {activeMenuItem === 'buscar' && sidebarMode === 'main' && <p style={{ color: 'white' }}>Clique no ícone de busca no menu lateral para pesquisar.</p>}
                     {activeMenuItem === 'categorias' && sidebarMode === 'main' && <p style={{ color: 'white' }}>Clique no ícone de categorias no menu lateral para ver as categorias.</p>}
                     {sidebarMode === 'search' && <p style={{ color: 'white' }}>Você está na tela de busca. Termo atual: {searchTerm}</p>}
                     {sidebarMode === 'categories' && <p style={{ color: 'white' }}>Você está na tela de categorias. Termo atual: {searchTerm}</p>}
                 </main>
             </div>
+
+
 
             <Footer />
         </div>
