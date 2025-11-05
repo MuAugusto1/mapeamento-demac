@@ -310,7 +310,8 @@ body {
 
 .full-page-screen h1 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
+    margin-left: 3rem;
 }
 
 .full-page-screen p {
@@ -444,6 +445,7 @@ body {
 
 .about-page .back-button {
     margin-top: 3rem;
+    margin-left: 4rem;
     background-color: var(--cor-primaria);
     color: var(--cor-texto);
 }

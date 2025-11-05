@@ -40,6 +40,7 @@ function UNESPMap() {
                             borderTop: "5px solid #1DADEE",
                             borderRadius: "50%",
                             animation: "spin 1s linear infinite",
+                            marginTop: "-15%",
                         }}
                     />
                     <p style={{ color: "white", marginTop: "1rem", fontSize: "1rem" }}>
