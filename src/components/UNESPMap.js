@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
+import * as esri from "esri-leaflet";
 
 function UNESPMap() {
   const mapRef = useRef(null);
@@ -13,16 +14,16 @@ function UNESPMap() {
 
     const styles = {
       Caminho: {
-        color: "#FF6B00",
+        color: "#FFD700",
         weight: 4,
-        opacity: 0.9,
+        opacity: 0.95,
       },
       Planta: {
-        color: "#1E3A8A",
+        color: "#00D9FF",
         weight: 2,
         opacity: 1,
-        fillColor: "#3B82F6",
-        fillOpacity: 0.3,
+        fillColor: "#1E90FF",
+        fillOpacity: 0.4,
       },
       default: {
         color: "#FF0000",
@@ -47,10 +48,9 @@ function UNESPMap() {
 
       mapInstanceRef.current = map;
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxNativeZoom: 19,
+      // Dark Gray Canvas da Esri
+      esri.basemapLayer("DarkGray", {
+        maxNativeZoom: 16,
         maxZoom: 23,
       }).addTo(map);
 
