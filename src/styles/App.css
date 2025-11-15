@@ -455,7 +455,12 @@ body {
 }
 
 /* ----- Estilos para o modo Busca/Categorias no Sidebar ----- */
-.sidebar.expanded.search-mode,
+.sidebar.expanded.search-mode {
+    width: 250px;
+    padding-top: 0;
+    justify-content: space-between;
+}
+
 .sidebar.expanded.categories-mode {
     width: 250px;
     padding-top: 0;
@@ -534,9 +539,30 @@ body {
 .sidebar-search-content ul {
     width: 100%;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem 0.5rem 1rem 0;
     box-sizing: border-box;
     flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(463px - 120px);
+}
+
+/* Estilização da barra de rolagem */
+.sidebar-search-content ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar-search-content ul::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.sidebar-search-content ul::-webkit-scrollbar-thumb {
+    background: #000000;
+    border-radius: 10px;
+}
+
+.sidebar-search-content ul::-webkit-scrollbar-thumb:hover {
+    background: #2E2E48;
 }
 
 .sidebar-search-content .sidebar-item {
@@ -546,6 +572,11 @@ body {
     height: auto;
     min-height: 35px;
     margin-bottom: 0.5rem;
+}
+
+/* Largura maior apenas para itens do modo buscar */
+.sidebar.expanded.search-mode .sidebar-item {
+    width: calc(250px - 2.5rem);
 }
 
 .sidebar-search-content .sidebar-item:last-child {

@@ -12,33 +12,65 @@ function HomePage({ navegarPara }) {
     const [activeMenuItem, setActiveMenuItem] = useState('dashboard');
     const [sidebarMode, setSidebarMode] = useState('main'); // 'main', 'search', 'categories'
 
-    const defaultSearchOptions = [
-        'exemplo_busca',
-        'exemplo_busca1',
-        'exemplo_busca2',
-        'exemplo_busca3',
-        'exemplo_busca4',
-        'exemplo_busca5'
-    ];
-
     const defaultCategoryOptions = [
-        'Sala',
+        'Todos',
+        'Laboratórios',
         'Banheiro',
-        'Laboratório',
         'Estacionamento',        
-        'Bebedouro', 
+        'Bebedouro',
     ];
 
     const [searchTerm, setSearchTerm] = useState('');
-    const [activeSearchItem, setActiveSearchItem] = useState('exemplo_busca3');
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [availablePoints, setAvailablePoints] = useState([]); // Pontos carregados do mapa
+    const [selectedPoint, setSelectedPoint] = useState(null); // Ponto selecionado na busca
+    const [selectedCategories, setSelectedCategories] = useState(['Todos']);
+
+    const handlePointsLoaded = (points) => {
+        // Contar ocorrências de cada ponto
+        const pointCounts = {};
+        points.forEach(point => {
+            const normalizedPoint = point.trim();
+            pointCounts[normalizedPoint] = (pointCounts[normalizedPoint] || 0) + 1;
+        });
+        
+        // Criar array com pontos únicos e contagem
+        const uniquePointsWithCount = Object.keys(pointCounts).sort().map(point => ({
+            name: point,
+            count: pointCounts[point]
+        }));
+        
+        setAvailablePoints(uniquePointsWithCount);
+    };
+
+    const togglePoint = (point) => {
+        setSelectedPoint(prev => {
+            // Se clicar no mesmo ponto, desseleciona
+            if (prev === point) {
+                return null;
+            }
+            // Caso contrário, seleciona o novo ponto
+            return point;
+        });
+    };
 
     const toggleCategory = (category) => {
         setSelectedCategories(prev => {
-            if (prev.includes(category)) {
-                return prev.filter(cat => cat !== category);
+            // Se clicar em "Todos"
+            if (category === 'Todos') {
+                return ['Todos'];
+            }
+            
+            // Se clicar em outra categoria
+            const newCategories = prev.filter(cat => cat !== 'Todos'); // Remove "Todos"
+            
+            if (newCategories.includes(category)) {
+                // Desmarcando uma categoria
+                const filtered = newCategories.filter(cat => cat !== category);
+                // Se não sobrar nenhuma, volta para "Todos"
+                return filtered.length === 0 ? ['Todos'] : filtered;
             } else {
-                return [...prev, category];
+                // Marcando uma categoria
+                return [...newCategories, category];
             }
         });
     };
@@ -69,6 +101,12 @@ function HomePage({ navegarPara }) {
     const handleReturnFromMode = () => {
         setSidebarMode('main');
         setSidebarExpanded(true);
+        // Limpar ponto selecionado e termo de busca ao sair do modo de busca
+        if (sidebarMode === 'search') {
+            setSelectedPoint(null);
+        }
+        // Limpar termo de busca ao sair de qualquer modo
+        setSearchTerm('');
     };
 
     const handleLogout = () => {
@@ -226,17 +264,23 @@ function HomePage({ navegarPara }) {
                                 />
                             </div>
                             <ul>
-                                {defaultSearchOptions
-                                    .filter(option => option.includes(searchTerm))
-                                    .map((option, index) => (
-                                        <li
-                                            key={index}
-                                            className={`sidebar-item ${activeSearchItem === option ? 'active' : ''}`}
-                                            onClick={(e) => { e.stopPropagation(); setActiveSearchItem(option); }}
-                                        >
-                                            <span className="sidebar-text">{option}</span>
-                                        </li>
-                                    ))}
+                                {availablePoints.length === 0 ? (
+                                    <li className="sidebar-item" style={{ opacity: 0.6, cursor: 'default', pointerEvents: 'none' }}>
+                                        <span className="sidebar-text">Carregando pontos...</span>
+                                    </li>
+                                ) : (
+                                    availablePoints
+                                        .filter(point => point.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                                        .map((point, index) => (
+                                            <li
+                                                key={index}
+                                                className={`sidebar-item ${selectedPoint === point.name ? 'active' : ''}`}
+                                                onClick={(e) => { e.stopPropagation(); togglePoint(point.name); }}
+                                            >
+                                                <span className="sidebar-text">{point.name}</span>
+                                            </li>
+                                        ))
+                                )}
                             </ul>
                             <div className="sidebar-search-footer">
                                 <div className="sidebar-return-btn" onClick={(e) => { e.stopPropagation(); handleReturnFromMode(); }}>
@@ -297,7 +341,11 @@ function HomePage({ navegarPara }) {
 
                 {/* Conteúdo principal */}
                 <main className="content-area">            
-                    <UNESPMap />                                        
+                    <UNESPMap 
+                        selectedCategories={selectedCategories} 
+                        selectedPoint={selectedPoint}
+                        onPointsLoaded={handlePointsLoaded}
+                    />                                        
                 </main>
             </div>
 
