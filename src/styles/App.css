@@ -1,3 +1,8 @@
+.devs-panel ul {
+    padding-left: 0;
+    margin-left: 0;
+    list-style: none;
+}
 :root {
     --cor-primaria: #1DADEE;
     --cor-secundaria: #000000;
@@ -71,7 +76,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.6s ease, transform 0.4s ease;
 }
 
 .continue-button:hover {
@@ -299,7 +304,7 @@ body {
     color: var(--cor-texto);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
     padding: 2rem;
@@ -334,7 +339,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.6s ease, transform 0.4s ease;
 }
 
 .back-button:hover {
@@ -372,6 +377,21 @@ body {
     stroke: white;
 }
 
+.about-panel-title {
+     font-size: 2rem;
+     font-weight: 700;
+     margin-bottom: 16px;
+     line-height: 1.2;
+}
+/* Garantir centralização do título 'Nosso Objetivo' no painel */
+.objetivo-panel h2 {
+    text-align: center !important;
+    display: block !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+}
+
 .about-timeline {
     display: flex;
     flex-direction: column;
@@ -379,6 +399,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 500px;
+    margin-left: 40px;
 }
 
 .about-timeline::before {
@@ -398,6 +419,20 @@ body {
     align-items: center;
     position: relative;
     z-index: 2;
+    transition: background-color 0.6s, box-shadow 0.6s, transform 0.5s;
+}
+
+/* Garantir que o tamanho dos botões da timeline seja sempre igual, clicado ou não */
+.about-timeline .timeline-item,
+.about-timeline .timeline-item.active {
+    width: 100%;
+    min-width: 320px;
+    max-width: 480px;
+}
+
+.timeline-content {
+    width: 100%;
+    justify-content: center;
 }
 
 .timeline-circle {
@@ -420,7 +455,7 @@ body {
     color: black;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.4s ease, background-color 0.6s, box-shadow 0.6s;
 }
 
 .timeline-content:hover {
@@ -442,6 +477,19 @@ body {
 
 .item-contato .timeline-circle { border-color: #FFEB3B; }
 .item-contato .timeline-content { background-color: #FFEB3B; }
+
+/* Bolinha preenchida ao selecionar o item da timeline */
+.timeline-item.active .timeline-circle {
+    background-color: currentColor;
+    border-color: currentColor;
+}
+
+/* Cores das bolinhas para cada item */
+.item-objetivo .timeline-circle { color: #1DADEE; }
+.item-devs .timeline-circle { color: #E91E63; }
+.item-tech .timeline-circle { color: #9C27B0; }
+.item-agradecimentos .timeline-circle { color: #4DB6AC; }
+.item-contato .timeline-circle { color: #FFEB3B; }
 
 .about-page .back-button {
     margin-top: 3rem;
@@ -738,4 +786,263 @@ body {
 
 .help-page .back-button:hover {
     background-color: #1a9bcc;
+}
+
+/* Estilo especial para o painel 'Nosso Objetivo' na página Sobre */
+.objetivo-panel {
+    background: linear-gradient(135deg, #eaf6fc 60%, #ffffff 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(29,173,238,0.15);
+    padding: 2rem 2.5rem;
+    color: #222;
+    animation: fadeInObjetivo 0.8s;
+    position: relative;
+    overflow: hidden;
+    border: 5px solid #1DADEE;
+}
+
+@keyframes fadeInObjetivo {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.objetivo-panel h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1DADEE;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.objetivo-panel p {
+    font-size: 1.15rem;
+    margin-bottom: 1.2rem;
+    color: #222;
+}
+
+.objetivo-panel ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+}
+
+.objetivo-panel li {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    color: #1565a3;
+    position: relative;
+    padding-left: 1.2rem;
+    font-weight: 500;
+}
+
+.objetivo-panel li::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    color: #1DADEE;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Ajuste: painel 'Desenvolvedores' com borda rosa, fundo branco padrão */
+.devs-panel {
+    background: #fff;
+    border: 5px solid #E91E63;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(233,30,99,0.10);
+    padding: 2rem 2.5rem;
+    color: #222;
+    animation: fadeInDevs 0.8s;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fadeInDevs {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.devs-panel h2 {
+    text-align: center !important;
+    color: #E91E63;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    font-weight: 700;
+}
+.devs-panel p {
+    color: #222;
+}
+.devs-panel li {
+    color: #ad1457;
+    font-size: 1.05rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.devs-panel li::before {
+    content: '● 👤';
+    position: absolute;
+    left: 0;
+    color: #E91E63;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Garantir borda arredondada no painel 'Tecnologias' */
+.tech-panel {
+    border-radius: 1.5rem;
+}
+
+/* Ajuste: painel 'Tecnologias' com borda roxa, fundo branco padrão */
+.tech-panel {
+    background: #fff;
+    border: 5px solid #9C27B0;
+    box-shadow: 0 4px 24px rgba(156,39,176,0.10);
+    padding: 2rem 2.5rem;
+    color: #222;
+    animation: fadeInTech 0.8s;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fadeInTech {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tech-panel h2 {
+    text-align: center !important;
+    color: #9C27B0;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    font-weight: 700;
+}
+.tech-panel p {
+    color: #222;
+}
+.tech-panel li {
+    color: #6d1b7b;
+    font-size: 1.05rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.tech-panel li::before {
+    content: '💻';
+    position: absolute;
+    left: 0;
+    color: #9C27B0;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Estilo especial para o painel 'Agradecimentos' na página Sobre */
+.agradecimentos-panel {
+    background: #fff;
+    border: 5px solid #4DB6AC;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(77,182,172,0.10);
+    padding: 2rem 2.5rem;
+    color: #222;
+    animation: fadeInAgradecimentos 0.8s;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fadeInAgradecimentos {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.agradecimentos-panel h2 {
+    text-align: center !important;
+    color: #4DB6AC;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    font-weight: 700;
+}
+.agradecimentos-panel p {
+    color: #222;
+}
+.agradecimentos-panel li {
+    color: #00796b;
+    font-size: 1.05rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.agradecimentos-panel li::before {
+    content: '🙏';
+    position: absolute;
+    left: 0;
+    color: #4DB6AC;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Estilo especial para o painel 'Contato e Feedback' na página Sobre */
+.contato-panel {
+    background: #fff;
+    border: 5px solid #FFEB3B;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(255,235,59,0.10);
+    padding: 2rem 2.5rem;
+    color: #222;
+    animation: fadeInContato 0.8s;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes fadeInContato {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contato-panel h2 {
+    text-align: center !important;
+    color: #FFEB3B;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    font-weight: 700;
+}
+.contato-panel p {
+    color: #222;
+}
+.contato-panel li {
+    color: #b2a300;
+    font-size: 1.05rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.contato-panel li::before {
+    content: '✉️';
+    position: absolute;
+    left: 0;
+    color: #FFEB3B;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Definir altura mínima para todos os painéis da página Sobre */
+.objetivo-panel,
+.devs-panel,
+.tech-panel,
+.agradecimentos-panel,
+.contato-panel {
+    min-height: 340px;
 }
