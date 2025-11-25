@@ -7,8 +7,6 @@ import Footer from './Footer';
  * Não possui header nem menu lateral.
  */
 function HelpPage({ navegarPara }) {
-    const loremText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et nisl tempor mi tempus efficitur. Ut faucibus nunc mauris, ut tincidunt lacus pulvinar sed. Nullam vehicula tortor vel malesuada posuere";
-
     // Ícones como componentes
     const ChecklistIcon = () => (
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -34,7 +32,7 @@ function HelpPage({ navegarPara }) {
 
     return (
         <div className="full-page-screen about-page help-page">
-            <h1 className="about-title">
+            <h1 className="about-title" style={{ marginLeft: '0rem' }}>
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -44,30 +42,28 @@ function HelpPage({ navegarPara }) {
             </h1>
 
             <div className="help-card-container">
-                <HelpCard 
+                <HelpCard
                     icon={ChecklistIcon}
                     color="#1DADEE"
-                    title="Lorem Ipsum"
-                    text={loremText}
+                    title="Como Navegar pelo Mapa"
+                    text="Use o mapa interativo para localizar laboratórios, banheiros  e outros espaços do Demac.
+                    Você pode aproximar e afastar o mapa usando os botões de zoom, e clicar nos marcadores para ver nome de cada local.
+                    O sistema foi projetado para ser simples, rápido e fácil de usar em qualquer dispositivo."
                 />
-                <HelpCard 
+                <HelpCard
                     icon={StrategyIcon}
-                    color="#E91E63" 
-                    title="Lorem Ipsum"
-                    text={loremText}
-                />
-                <HelpCard 
-                    icon={IdeaIcon}
-                    color="#9C27B0" 
-                    title="Lorem Ipsum"
-                    text={loremText}
+                    color="#9C27B0"
+                    title="Pesquisa e Filtros"
+                    text="A ferramenta de busca permite localizar rapidamente qualquer área do DEMAC.
+                    Use os filtros para visualizar apenas categorias específicas, como banheiros, laboratórios, bebedouros ou estacionamento.
+                    Isso ajuda você a encontrar exatamente o que precisa sem perder tempo navegando pelo mapa inteiro."
                 />
             </div>
-            
+
             <button className="back-button" onClick={() => navegarPara('home')}>
                 Voltar
             </button>
-            
+
             <Footer />
         </div>
     );
