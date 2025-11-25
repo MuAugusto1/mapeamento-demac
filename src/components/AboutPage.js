@@ -6,7 +6,7 @@ import Footer from './Footer';
  * Não possui header nem menu lateral.
  */
 function AboutPage({ navegarPara }) {
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState("objetivo");
 
     const handleTimelineClick = (item) => {
         setSelectedItem(prev => prev === item ? null : item);
