@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { AccessibilityProvider } from './contexts/AccessibilityContext';
+import AccessibilityBar from './components/AccessibilityBar';
 import InicioPage from './components/InicioPage';
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
@@ -17,12 +19,15 @@ function App() {
     };
 
     return (
-        <div className="app-container">
-            {telaAtual === 'inicio' && <InicioPage aoContinuar={() => navegarPara('home')} />}
-            {telaAtual === 'home' && <HomePage navegarPara={navegarPara} />}
-            {telaAtual === 'about' && <AboutPage navegarPara={navegarPara} />}
-            {telaAtual === 'help' && <HelpPage navegarPara={navegarPara} />}
-        </div>
+        <AccessibilityProvider>            
+            <div className="app-container" id="main-content">
+                <AccessibilityBar />
+                {telaAtual === 'inicio' && <InicioPage aoContinuar={() => navegarPara('home')} />}
+                {telaAtual === 'home' && <HomePage navegarPara={navegarPara} />}
+                {telaAtual === 'about' && <AboutPage navegarPara={navegarPara} />}
+                {telaAtual === 'help' && <HelpPage navegarPara={navegarPara} />}
+            </div>
+        </AccessibilityProvider>
     );
 }
 

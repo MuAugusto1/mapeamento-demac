@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useAccessibility } from '../contexts/AccessibilityContext';
 
 function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoaded = null }) {
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const tileLayerRef = useRef(null); // Referência ao tile layer para poder trocá-lo
   const [isLoading, setIsLoading] = useState(true);
   const [geoError, setGeoError] = useState(false);
   const iconLayersRef = useRef([]); // Array para armazenar os markers para pesquisa futura
   const iconGroupRef = useRef(null); // Referência ao layer group dos ícones
+  const { darkMode } = useAccessibility();
 
   // --- Função que determina a categoria de um ponto --- //
   const getCategoryFromName = (nome) => {
@@ -20,6 +23,9 @@ function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoade
     if (nome.includes("Bicicletário")) return "Bicicletário";
     if (nome.includes("Projetos")) return "Projetos";
     if (nome.includes("Prisma")) return "Prisma";
+    if (nome.includes("Rampa")) return "Rampa";
+    if (nome.includes("Sala")) return "Salas";
+    if (nome.includes("Anfiteatro")) return "Anfiteatro";
     return "Outros";
   };
 
@@ -31,9 +37,15 @@ function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoade
     if (nome.includes("Laboratório")) {
       iconHtml = "🔬";
       bgColor = "#9C27B0";
+    } else if (nome.includes("Banheiro") && (nome.includes("PCD") || nome.includes("Acessível"))) {
+      iconHtml = "♿";
+      bgColor = "#2196F3";
     } else if (nome.includes("Banheiro")) {
       iconHtml = "🚻";
       bgColor = "#2196F3";
+    } else if (nome.includes("Sala") || nome.includes("Anfiteatro")) {
+      iconHtml = "🚪";
+      bgColor = "#795548";
     } else if (nome.includes("Bicicletário")) {
       iconHtml = "🚲";
       bgColor = "#4CAF50";
@@ -52,6 +64,9 @@ function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoade
     } else if (nome.includes("Prisma")) {
       iconHtml = "🏛️";
       bgColor = "#673AB7";
+    } else if (nome.includes("Rampa")) {
+      iconHtml = "♿";
+      bgColor = "#4CAF50";
     } else {
       iconHtml = "📍";
     }
@@ -94,8 +109,8 @@ function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoade
         fillOpacity: 0.4,
       },
       default: {
-        color: "#FF0000",
-        weight: 1,
+        color: "#00D9FF",
+        weight: 2,
       },
     };
 
@@ -115,7 +130,12 @@ function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoade
 
       mapInstanceRef.current = map;
 
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      // Adicionar tile layer inicial (modo claro por padrão)
+      const initialTileUrl = darkMode 
+        ? 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
+        : 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+      
+      tileLayerRef.current = L.tileLayer(initialTileUrl, {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 20,
@@ -201,6 +221,25 @@ function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoade
       }
     };
   }, []);
+
+  // --- useEffect para trocar tile layer quando mudar o modo escuro/claro --- //
+  useEffect(() => {
+    if (!mapInstanceRef.current || !tileLayerRef.current) return;
+
+    // Remover tile layer atual
+    mapInstanceRef.current.removeLayer(tileLayerRef.current);
+
+    // Adicionar novo tile layer baseado no modo
+    const newTileUrl = darkMode 
+      ? 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'
+      : 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+
+    tileLayerRef.current = L.tileLayer(newTileUrl, {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20,
+    }).addTo(mapInstanceRef.current);
+  }, [darkMode]);
 
   // --- useEffect para filtrar ícones por ponto específico (busca) --- //
   useEffect(() => {
@@ -322,7 +361,7 @@ function UNESPMap({ selectedCategories = [], selectedPoint = null, onPointsLoade
       )}
       
 
-        <div ref={mapRef} style={{ width: "100%", height: "69%" }} />
+        <div ref={mapRef} style={{ width: "100%", height: "70%" }} />
       </div>
     </>
   );

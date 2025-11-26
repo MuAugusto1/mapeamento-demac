@@ -1142,3 +1142,139 @@ body {
 .contato-panel {
     min-height: 340px;
 }
+
+/* ===== ESTILOS DE ACESSIBILIDADE ===== */
+
+/* Alto Contraste */
+.high-contrast {
+    --cor-primaria: #FFFF00;
+    --cor-secundaria: #000000;
+    --cor-texto: #FFFFFF;
+    --cor-menu-ativo: #FFFF00;
+    --cor-fundo-ativo-claro: rgba(255, 255, 255, 0.3);
+}
+
+.high-contrast body {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+.high-contrast .home-header {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border-bottom: 3px solid #FFFFFF;
+}
+
+.high-contrast .sidebar {
+    background-color: #000000 !important;
+    border: 3px solid #FFFF00 !important;
+}
+
+.high-contrast .sidebar-item {
+    color: #FFFFFF !important;
+    border: 2px solid #FFFF00;
+}
+
+.high-contrast .sidebar-item svg {
+    stroke: #FFFFFF !important;
+}
+
+.high-contrast .sidebar-item.active {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+}
+
+.high-contrast .sidebar-item.active svg {
+    stroke: #000000 !important;
+}
+
+.high-contrast .sidebar-text {
+    color: #FFFFFF !important;
+}
+
+.high-contrast .sidebar-item.active .sidebar-text {
+    color: #000000 !important;
+}
+
+.high-contrast .continue-button,
+.high-contrast .back-button {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+    border: 3px solid #FFFFFF !important;
+    font-weight: bold;
+}
+
+.high-contrast .footer {
+    background-color: #000000;
+    color: #FFFFFF !important;
+    border-top: 2px solid #FFFF00;
+}
+
+.high-contrast .full-page-screen {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+.high-contrast .help-card {
+    border: 3px solid #FFFF00 !important;
+    background-color: #000000 !important;
+}
+
+.high-contrast .help-card-body {
+    color: #FFFFFF !important;
+}
+
+.high-contrast .help-card-body h3 {
+    color: #FFFF00 !important;
+}
+
+.high-contrast .help-card-body p {
+    color: #FFFFFF !important;
+}
+
+/* Ajustes para garantir boa legibilidade */
+.high-contrast * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Melhorias de navegação por teclado */
+*:focus-visible {
+    outline: 3px solid #FFD700;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #FFD700;
+    outline-offset: 2px;
+}
+
+/* Garantir que elementos interativos tenham tamanho mínimo para acessibilidade */
+button,
+a,
+.sidebar-item,
+.timeline-item {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Skip to main content - para leitores de tela */
+.skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--cor-primaria);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 10000;
+    font-weight: bold;
+}
+
+.skip-to-main:focus {
+    top: 0;
+}

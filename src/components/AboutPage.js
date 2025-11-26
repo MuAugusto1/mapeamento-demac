@@ -82,9 +82,9 @@ function AboutPage({ navegarPara }) {
     };
 
     return (
-        <div className="full-page-screen about-page">
-            <h1 className="about-title">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <div className="full-page-screen about-page" role="main">
+            <h1 className="about-title" role="heading" aria-level="1">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="12" y1="16" x2="12" y2="12"></line>
                     <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -92,33 +92,73 @@ function AboutPage({ navegarPara }) {
                 Sobre
             </h1>
             <div className="about-content-wrapper" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '32px' }}>
-                <div className="about-timeline" style={{ minWidth: '220px' }}>
-                    <div className={`timeline-item item-objetivo${selectedItem === 'objetivo' ? ' active' : ''}`} onClick={() => handleTimelineClick('objetivo')}>
-                        <div className="timeline-circle"></div>
+                <div className="about-timeline" style={{ minWidth: '220px' }} role="navigation" aria-label="Navegação da página Sobre">
+                    <div 
+                        className={`timeline-item item-objetivo${selectedItem === 'objetivo' ? ' active' : ''}`} 
+                        onClick={() => handleTimelineClick('objetivo')}
+                        role="button"
+                        tabIndex="0"
+                        aria-pressed={selectedItem === 'objetivo'}
+                        aria-label="Ver informações sobre nosso objetivo"
+                        onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleTimelineClick('objetivo'); }}}
+                    >
+                        <div className="timeline-circle" aria-hidden="true"></div>
                         <div className="timeline-content">Nosso Objetivo</div>
                     </div>
-                    <div className={`timeline-item item-devs${selectedItem === 'devs' ? ' active' : ''}`} onClick={() => handleTimelineClick('devs')}>
-                        <div className="timeline-circle"></div>
+                    <div 
+                        className={`timeline-item item-devs${selectedItem === 'devs' ? ' active' : ''}`} 
+                        onClick={() => handleTimelineClick('devs')}
+                        role="button"
+                        tabIndex="0"
+                        aria-pressed={selectedItem === 'devs'}
+                        aria-label="Ver informações sobre os desenvolvedores"
+                        onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleTimelineClick('devs'); }}}
+                    >
+                        <div className="timeline-circle" aria-hidden="true"></div>
                         <div className="timeline-content">Desenvolvedores</div>
                     </div>
-                    <div className={`timeline-item item-tech${selectedItem === 'tech' ? ' active' : ''}`} onClick={() => handleTimelineClick('tech')}>
-                        <div className="timeline-circle"></div>
+                    <div 
+                        className={`timeline-item item-tech${selectedItem === 'tech' ? ' active' : ''}`} 
+                        onClick={() => handleTimelineClick('tech')}
+                        role="button"
+                        tabIndex="0"
+                        aria-pressed={selectedItem === 'tech'}
+                        aria-label="Ver informações sobre as tecnologias utilizadas"
+                        onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleTimelineClick('tech'); }}}
+                    >
+                        <div className="timeline-circle" aria-hidden="true"></div>
                         <div className="timeline-content">Tecnologias</div>
                     </div>
-                    <div className={`timeline-item item-agradecimentos${selectedItem === 'agradecimentos' ? ' active' : ''}`} onClick={() => handleTimelineClick('agradecimentos')}>
-                        <div className="timeline-circle"></div>
+                    <div 
+                        className={`timeline-item item-agradecimentos${selectedItem === 'agradecimentos' ? ' active' : ''}`} 
+                        onClick={() => handleTimelineClick('agradecimentos')}
+                        role="button"
+                        tabIndex="0"
+                        aria-pressed={selectedItem === 'agradecimentos'}
+                        aria-label="Ver agradecimentos"
+                        onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleTimelineClick('agradecimentos'); }}}
+                    >
+                        <div className="timeline-circle" aria-hidden="true"></div>
                         <div className="timeline-content">Agradecimentos</div>
                     </div>
-                    <div className={`timeline-item item-contato${selectedItem === 'contato' ? ' active' : ''}`} onClick={() => handleTimelineClick('contato')}>
-                        <div className="timeline-circle"></div>
+                    <div 
+                        className={`timeline-item item-contato${selectedItem === 'contato' ? ' active' : ''}`} 
+                        onClick={() => handleTimelineClick('contato')}
+                        role="button"
+                        tabIndex="0"
+                        aria-pressed={selectedItem === 'contato'}
+                        aria-label="Ver informações de contato e feedback"
+                        onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleTimelineClick('contato'); }}}
+                    >
+                        <div className="timeline-circle" aria-hidden="true"></div>
                         <div className="timeline-content">Contato e Feedback</div>
                     </div>
                 </div>
-                <div className="about-panel" style={{ flex: 1, maxWidth: selectedItem ? '100%' : '0', opacity: selectedItem ? 1 : 0, transition: 'max-width 0.5s ease, opacity 0.5s ease' }}>
+                <div className="about-panel" style={{ flex: 1, maxWidth: selectedItem ? '100%' : '0', opacity: selectedItem ? 1 : 0, transition: 'max-width 0.5s ease, opacity 0.5s ease' }} role="region" aria-live="polite">
                     {renderPanelContent()}
                 </div>
             </div>
-            <button className="back-button" onClick={() => navegarPara('home')}>
+            <button className="back-button" onClick={() => navegarPara('home')} aria-label="Voltar para a página inicial">
                 Voltar
             </button>
             <Footer />

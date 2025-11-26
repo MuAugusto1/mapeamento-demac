@@ -18,6 +18,9 @@ function HomePage({ navegarPara }) {
         'Banheiro',
         'Estacionamento',        
         'Bebedouro',
+        'Rampa',
+        'Salas',
+        'Anfiteatro',
     ];
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -115,7 +118,7 @@ function HomePage({ navegarPara }) {
 
     return (
         <div className="home-page-root">
-            <header className="home-header">
+            <header className="home-header" role="banner">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -135,7 +138,7 @@ function HomePage({ navegarPara }) {
 
                 <img
                     src="/unesp-logo-11.png"
-                    alt="Logo Unesp"
+                    alt="Logo da Universidade Estadual Paulista - UNESP"
                     className="header-logo"
                 />
             </header>
@@ -149,18 +152,21 @@ function HomePage({ navegarPara }) {
                             setSidebarExpanded(true);
                         }
                     }}
+                    role="navigation"
+                    aria-label="Menu lateral de navegação"
                 >
                     {sidebarMode === 'main' && (
-                        <nav>
-                            <ul>
+                        <nav aria-label="Menu principal">
+                            <ul role="menubar">
                                 {/* 1. Ícone UNESP */}
                                 <li
                                     className="sidebar-item sidebar-item-logo"
                                     onClick={(e) => { e.stopPropagation(); setSidebarExpanded(true); }}
+                                    role="menuitem"
                                 >
                                 <img
                                     src="/unesp-logo-preto.png"
-                                    alt="Logo Unesp"                                  
+                                    alt="Logo da UNESP - Universidade Estadual Paulista"                                  
                                 />
                                 </li>
 
@@ -169,6 +175,10 @@ function HomePage({ navegarPara }) {
                                     className={`sidebar-item ${activeMenuItem === 'dashboard' ? 'active' : ''}`}
                                     style={{ marginTop: '2rem' }}
                                     onClick={(e) => { e.stopPropagation(); handleMenuItemClick('dashboard'); }}
+                                    role="menuitem"
+                                    tabIndex="0"
+                                    aria-label="Dashboard - Visualizar painel principal"
+                                    onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleMenuItemClick('dashboard'); }}}
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M10 3H3v7h7V3zM21 3h-7v7h7V3zM21 14h-7v7h7v-7zM10 14H3v7h7v-7z"></path>
@@ -181,6 +191,10 @@ function HomePage({ navegarPara }) {
                                     className={`sidebar-item ${activeMenuItem === 'buscar' ? 'active' : ''}`}
                                     style={{ marginTop: '2rem' }}
                                     onClick={(e) => { e.stopPropagation(); handleMenuItemClick('buscar'); }}
+                                    role="menuitem"
+                                    tabIndex="0"
+                                    aria-label="Buscar locais no mapa"
+                                    onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleMenuItemClick('buscar'); }}}
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="11" cy="11" r="8"></circle>
@@ -191,9 +205,12 @@ function HomePage({ navegarPara }) {
 
                                 {/* 4. Categorias */}
                                 <li
-                                    className={`sidebar-item ${activeMenuItem === 'categorias' ? 'active' : ''}`}
-                                    style={{ marginTop: '1rem' }}
+                                    className={`sidebar-item ${activeMenuItem === 'categorias' ? 'active' : ''}`}                                    
                                     onClick={(e) => { e.stopPropagation(); handleMenuItemClick('categorias'); }}
+                                    role="menuitem"
+                                    tabIndex="0"
+                                    aria-label="Filtrar por categorias"
+                                    onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleMenuItemClick('categorias'); }}}
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <line x1="4" y1="8" x2="20" y2="8"></line>
@@ -206,8 +223,11 @@ function HomePage({ navegarPara }) {
                                 {/* 5. Sobre */}
                                 <li
                                     className={`sidebar-item ${activeMenuItem === 'sobre' ? 'active' : ''}`}
-                                    style={{ marginTop: '1rem' }}
                                     onClick={(e) => { e.stopPropagation(); handleMenuItemClick('sobre'); }}
+                                    role="menuitem"
+                                    tabIndex="0"
+                                    aria-label="Sobre o projeto"
+                                    onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleMenuItemClick('sobre'); }}}
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10"></circle>
@@ -220,8 +240,11 @@ function HomePage({ navegarPara }) {
                                 {/* 6. Ajuda */}
                                 <li
                                     className={`sidebar-item ${activeMenuItem === 'ajuda' ? 'active' : ''}`}
-                                    style={{ marginTop: '1rem' }}
                                     onClick={(e) => { e.stopPropagation(); handleMenuItemClick('ajuda'); }}
+                                    role="menuitem"
+                                    tabIndex="0"
+                                    aria-label="Ajuda e suporte"
+                                    onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleMenuItemClick('ajuda'); }}}
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10"></circle>
@@ -236,6 +259,10 @@ function HomePage({ navegarPara }) {
                                     className="sidebar-item sidebar-item-sair"
                                     style={{ marginTop: '2.5rem' }}
                                     onClick={(e) => { e.stopPropagation(); handleLogout(); }}
+                                    role="menuitem"
+                                    tabIndex="0"
+                                    aria-label="Fechar menu lateral"
+                                    onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleLogout(); }}}
                                 >
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                         <circle cx="12" cy="12" r="10"></circle>
@@ -261,6 +288,7 @@ function HomePage({ navegarPara }) {
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onClick={(e) => e.stopPropagation()}
+                                    aria-label="Campo de busca de locais"
                                 />
                             </div>
                             <ul>
@@ -306,6 +334,7 @@ function HomePage({ navegarPara }) {
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     onClick={(e) => e.stopPropagation()}
+                                    aria-label="Campo de busca de categorias"
                                 />
                             </div>
                             <ul>
@@ -340,7 +369,7 @@ function HomePage({ navegarPara }) {
                 </aside>
 
                 {/* Conteúdo principal */}
-                <main className="content-area">            
+                <main className="content-area" role="main" aria-label="Mapa interativo da UNESP">            
                     <UNESPMap 
                         selectedCategories={selectedCategories} 
                         selectedPoint={selectedPoint}

@@ -31,9 +31,9 @@ function HelpPage({ navegarPara }) {
     );
 
     return (
-        <div className="full-page-screen about-page help-page">
-            <h1 className="about-title" style={{ marginLeft: '0rem' }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <div className="full-page-screen about-page help-page" role="main">
+            <h1 className="about-title" style={{ marginLeft: '0rem' }} role="heading" aria-level="1">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
@@ -41,7 +41,7 @@ function HelpPage({ navegarPara }) {
                 Ajuda
             </h1>
 
-            <div className="help-card-container">
+            <div className="help-card-container" role="region" aria-label="Cartões de ajuda">
                 <HelpCard
                     icon={ChecklistIcon}
                     color="#1DADEE"
@@ -60,7 +60,7 @@ function HelpPage({ navegarPara }) {
                 />
             </div>
 
-            <button className="back-button" onClick={() => navegarPara('home')}>
+            <button className="back-button" onClick={() => navegarPara('home')} aria-label="Voltar para a página inicial">
                 Voltar
             </button>
 
